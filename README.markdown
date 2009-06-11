@@ -1,18 +1,27 @@
-CodeIgniter-cURL
+CodeIgniter-Asset
 ================
 
-CodeIgniter-cURL is a CodeIgniter library which makes it easy to do simple cURL requests 
-and makes more complicated cURL requests easier too.
+CodeIgniter-Asset is a modular asset linking library with a helper for tidy views.
 
 Usage
 -----
 
-	echo $this->curl->simple_get('http://example.com/');
-	echo $this->curl->simple_post('curl_test/message', array('message'=>'Sup buddy'));
+Include a JS file from /assets/js/jquery/jquery.ajaxify.js
 
-For more up to date usage and in-depth examples check the CodeIgniter wiki page:
+	<?= js('jquery/jquery.ajaxify.js'); ?>
 
-http://codeigniter.com/wiki/Curl_library/
+Get the full site URL for an image on your site
+
+	<?=image_url('logo.gif');?>
+
+Get a CSS file from within a module:
+
+	<?= css('somefile.css', 'news');?>
+
+Get only the relative web-path to a CSS file:
+
+	<?= css_path('style.css'); ?>
+
 
 Extra
 -----
