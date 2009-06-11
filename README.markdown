@@ -6,7 +6,9 @@ CodeIgniter-Asset is a modular asset linking library with a helper for tidy view
 Configuration
 -------------
 
-I thought about adding a config file but it really doesn't need one. Instead, set APPPATH_URI in config/constants.php the full web path to your application. The default is / so if your CI install is in web-root, you are ready to go.
+$config['asset_dir'] = Defaults to application directory. Set to folder in which assets/ sits.
+
+$config['asset_url'] = Will normally be your base_url, but could be in a differentl ocation. Full http URL to the asset directories parent.
 
 Usage
 -----
