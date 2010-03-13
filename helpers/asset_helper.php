@@ -34,6 +34,11 @@ function css($asset_name, $module_name = NULL, $attributes = array())
 	return $CI->asset->css($asset_name, $module_name, $attributes);
 }
 
+function theme_css($asset, $attributes = array())
+{
+	return css($asset, '_theme_', $attributes);
+}
+
 function css_url($asset_name, $module_name = NULL)
 {
 	$CI =& get_instance();
@@ -58,6 +63,11 @@ function image($asset_name, $module_name = NULL, $attributes = array())
 	return $CI->asset->image($asset_name, $module_name, $attributes);
 }
 
+function theme_image($asset, $attributes = array())
+{
+	return image($asset, '_theme_', $attributes);
+}
+
 function image_url($asset_name, $module_name = NULL)
 {
 	$CI =& get_instance();
@@ -80,6 +90,11 @@ function js($asset_name, $module_name = NULL)
 	$CI =& get_instance();
 	$CI->load->library('asset');
 	return $CI->asset->js($asset_name, $module_name);
+}
+
+function theme_js($asset, $attributes = array())
+{
+	return js($asset, '_theme_', $attributes);
 }
 
 function js_url($asset_name, $module_name = NULL)
