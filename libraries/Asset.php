@@ -16,7 +16,7 @@
 // ------------------------------------------------------------------------
 
 /**
-* Code Igniter Asset Library
+* CodeIgniter Asset Library
 *
 * @package		CodeIgniter
 * @subpackage	Libraries
@@ -28,21 +28,22 @@
 
 class Asset
 {
-	var $CI;
+	private $_theme;
+	private $_ci;
 	
-	function Asset()
+	function __construct()
 	{
-		$this->CI =& get_instance();
+		$this->_ci =& get_instance();
 
-		$this->CI->load->config('asset');
+		$this->_ci->load->config('asset');
 	}
 	
 	// ------------------------------------------------------------------------
 	
 	/**
-	  * CSS Asset HTML Helper
+	  * CSS
 	  *
-	  * Helps generate JavaScript asset locations.
+	  * Helps generate CSS asset HTML.
 	  *
 	  * @access		public
 	  * @param		string    the name of the file or asset
@@ -62,9 +63,9 @@ class Asset
 	// ------------------------------------------------------------------------
 	
 	/**
-	  * CSS Asset Path Helper
+	  * CSS Path
 	  *
-	  * Generate CSS asset web path locations.
+	  * Generate CSS asset path locations.
 	  *
 	  * @access		public
 	  * @param		string    the name of the file or asset
@@ -81,9 +82,9 @@ class Asset
 	// ------------------------------------------------------------------------
 	
 	/**
-	  * CSS Asset URL Helper
+	  * CSS URL
 	  *
-	  * Generate CSS asset URL location.
+	  * Generate CSS asset URLs.
 	  *
 	  * @access		public
 	  * @param		string    the name of the file or asset
@@ -100,7 +101,7 @@ class Asset
 	// ------------------------------------------------------------------------
 	
 	/**
-	  * Image Asset HTML Helper
+	  * Image
 	  *
 	  * Helps generate image HTML.
 	  *
@@ -124,9 +125,9 @@ class Asset
 	// ------------------------------------------------------------------------
 	
 	/**
-	  * Image Asset Helper
+	  * Image Path
 	  *
-	  * Helps generate CSS asset locations.
+	  * Helps generate image paths.
 	  *
 	  * @access		public
 	  * @param		string    the name of the file or asset
@@ -142,9 +143,9 @@ class Asset
 	// ------------------------------------------------------------------------
 	
 	/**
-	  * Image Asset Helper
+	  * Image URL
 	  *
-	  * Helps generate CSS asset locations.
+	  * Helps generate image URLs.
 	  *
 	  * @access		public
 	  * @param		string    the name of the file or asset
@@ -161,9 +162,9 @@ class Asset
 	// ------------------------------------------------------------------------
 	
 	/**
-	  * JavaScript Asset HTML Helper
+	  * JS
 	  *
-	  * Helps generate JavaScript asset locations.
+	  * Helps generate JavaScript asset HTML.
 	  *
 	  * @access		public
 	  * @param		string    the name of the file or asset
@@ -179,9 +180,9 @@ class Asset
 	// ------------------------------------------------------------------------
 	
 	/**
-	  * JavaScript Asset Path Helper
+	  * JS Path
 	  *
-	  * Helps generate JavaScript asset locations.
+	  * Helps generate JavaScript asset paths.
 	  *
 	  * @access		public
 	  * @param		string    the name of the file or asset
@@ -197,7 +198,7 @@ class Asset
 	// ------------------------------------------------------------------------
 	
 	/**
-	  * JavaScript Asset URL Helper
+	  * JS URL
 	  *
 	  * Helps generate JavaScript asset locations.
 	  *
@@ -239,7 +240,7 @@ class Asset
 	
 	function _other_asset_location($asset_name, $module_name = NULL, $asset_type = NULL, $location_type = 'url')
 	{
-		$base_location = $this->CI->config->item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
+		$base_location = $this->_ci->config->item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
 		
 		// If they are using a direct path, take them to it
 		if(strpos($asset_name, 'assets/') !== FALSE)
@@ -248,10 +249,10 @@ class Asset
 		}
 		
 		// If they have just given a filename, not an asset path, and its in a theme
-		elseif($module_name == '_theme_')
+		elseif($module_name == '_theme_' && $this->_theme)
 		{
 			$asset_location = $base_location.'themes/'
-							. $this->CI->settings->item('default_theme').'/'
+							. $this->_theme.'/'
 							. $asset_type.'/'.$asset_name;
 		}
 		
@@ -261,9 +262,21 @@ class Asset
 			$asset_location = $base_location;
 		
 			// Its in a module, ignore the current 
-			if($module_name) {
-				$asset_location .= 'modules/'.$module_name.'/';
-			} else {
+			if($module_name)
+			{
+				foreach( array_keys(Modules::$locations) as $path)
+				{
+					if(is_dir($path . $module_name))
+					{	
+						$asset_location .= str_replace(APPPATH, '', $path).$module_name.'/';
+						break;
+					}
+				}
+				
+			}
+			
+			else
+			{
 				$asset_location .= 'assets/';
 			}
 			
@@ -296,9 +309,27 @@ class Asset
 			{
 				$attribute_str .= ' '.$key.'="'.$value.'"';
 			}
+			
+			return $attribute_str;
 		}
 	
-		return $attribute_str;
+		return $attributes;
+	}
+
+	// ------------------------------------------------------------------------
+	
+	/**
+	  * Set theme
+	  *
+	  * If you use some sort of theme system, this method stores the theme name
+	  *
+	  * @access		public
+	  * @param		string		theme name
+	  */
+		
+	function set_theme($theme)
+	{
+		$this->_theme = $theme;
 	}
 	
 }
