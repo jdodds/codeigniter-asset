@@ -241,13 +241,21 @@ class Asset
 	function _other_asset_location($asset_name, $module_name = NULL, $asset_type = NULL, $location_type = 'url')
 	{
 		$base_location = $this->_ci->config->item( $location_type == 'url' ? 'asset_url' : 'asset_dir' );
-		
+		if (config_item('asset_use_dir') !== FALSE)
+		{
+			$base_location .= config_item('asset_dir_name');
+		}
 		// If they are using a direct path, take them to it
-		if(strpos($asset_name, 'assets/') !== FALSE)
+		if(strpos($asset_name, config_item('asset_dir')) !== FALSE &&
+			 config_item('asset_use_dir' !== FALSE))
 		{
 			$asset_location = $base_location.$asset_name;
 		}
-		
+		// If they are using a full URL, take them to it
+		elseif(strpos(strtolower($asset_name), 'http') === 0)
+		{
+			$asset_location = $asset_name;
+		}
 		// If they have just given a filename, not an asset path, and its in a theme
 		elseif($module_name == '_theme_' && $this->_theme)
 		{
@@ -273,11 +281,6 @@ class Asset
 					}
 				}
 				
-			}
-			
-			else
-			{
-				$asset_location .= 'assets/';
 			}
 			
 			$asset_location .= $asset_type.'/'.$asset_name;

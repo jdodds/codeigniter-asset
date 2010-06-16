@@ -2,19 +2,40 @@
 
 /*
 |--------------------------------------------------------------------------
+| Use Assset Directory
+|--------------------------------------------------------------------------
+| Whether or not to use a special directory for the assets folder. 
+| This is a boolean value.
+|
+*/
+
+$config['asset_use_dir'] = true;
+
+/*
+|--------------------------------------------------------------------------
+| Asset Directory Name
+|--------------------------------------------------------------------------
+|
+| Name of the directory (WITH trailing slash) that will hold your assets
+|
+*/
+$config['asset_dir_name'] = 'assets/';
+
+/*
+|--------------------------------------------------------------------------
 | Asset Directory
 |--------------------------------------------------------------------------
 |
 | Absolute path from the webroot to your CodeIgniter root. Typically this will be your APPPATH,
-| WITH a trailing slash:
+| WITHOUT a trailing slash
 |
-|	/assets/
 |
 */
 
 // This crazy line means it will use the app path whether its in the web root or not
 // Feel free to change this to something more normal lookin!
-$config['asset_dir'] = parse_url(config_item('base_url'), PHP_URL_PATH).'/';
+  
+$config['asset_dir'] = parse_url(config_item('base_url'), PHP_URL_PATH);
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +43,14 @@ $config['asset_dir'] = parse_url(config_item('base_url'), PHP_URL_PATH).'/';
 |--------------------------------------------------------------------------
 |
 | URL to your CodeIgniter root. Typically this will be your base URL,
-| WITH a trailing slash:
+| WITHOUT a trailing slash:
 |
-|	http://example.com/assets/
+|	http://example.com/assets
 |
 */
 
-// Right now its pointing to the same place as the base_url.
-$config['asset_url'] = config_item('base_url').'assets/';
+// Right now its pointing to the same place as the base_url 
+  $config['asset_url'] = config_item('base_url');
 
 /*
 |--------------------------------------------------------------------------
