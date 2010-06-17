@@ -27,6 +27,14 @@
 // ------------------------------------------------------------------------
 
 
+function multiple_assets($asset_type, $asset_info)
+{
+	$CI =& get_instance();
+	$CI->load->library('asset');
+	return $CI->asset->multiple($asset_type, $asset_info);
+}
+
+
 function css($asset_name, $module_name = NULL, $attributes = array())
 {
 	$CI =& get_instance();

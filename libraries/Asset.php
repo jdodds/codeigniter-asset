@@ -39,7 +39,35 @@ class Asset
 	}
 	
 	// ------------------------------------------------------------------------
+	/**
+	  * Multiple
+	  *
+	  * Generates HTML for multiple items
+	  *
+	  * @access		public
+	  * @param		string    the name of the type of asset being generated multiple
+	  * @param		array either an array of arrays of arguments to pass, or an array of asset names
+	  * @return		string    HTML code for the asset
+	  */
 	
+	function multiple($asset_type, $assets)
+	{
+		$ret = array();
+		foreach ($assets as $asset)
+		{
+			if (is_array($asset))
+			{
+				$ret[] = call_user_func_array(array($this, $asset_type), $asset);
+			}
+			else
+			{
+				$ret[] = call_user_func(array($this, $asset_type), $asset);
+			}
+		}
+		return implode("\n", $ret);
+	}
+
+	// ------------------------------------------------------------------------
 	/**
 	  * CSS
 	  *
