@@ -40,8 +40,8 @@ Include multiple javascript files:
 Include multiple CSS files from within a module:
 
     <?= multiple_assets('css', array(
-                               array('foo.css', 'module_bar'),
-                               array('bar.css', 'module_bar'))
+                                 array('foo.css', 'module_bar'),
+                                 array('bar.css', 'module_bar'))
                        ); ?>
                    
 
