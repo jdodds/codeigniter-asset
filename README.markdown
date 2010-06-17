@@ -35,14 +35,14 @@ Get only the relative web-path to a CSS file:
 
 Include multiple javascript files:
 
-<?= multiple_assets('js', array('foo.js', 'bar.js')) ?>
+    <?= multiple_assets('js', array('foo.js', 'bar.js')) ?>
 
 Include multiple CSS files from within a module:
 
-<?= multiple_assets('css', array(
-                             array('foo.css', 'module_bar'),
-                             array('bar.css', 'module_bar'))
-                   ); ?>
+    <?= multiple_assets('css', array(
+                               array('foo.css', 'module_bar'),
+                               array('bar.css', 'module_bar'))
+                       ); ?>
                    
 
 
